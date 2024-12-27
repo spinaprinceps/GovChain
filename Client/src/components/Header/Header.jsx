@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import logo from "../../logo/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ethers } from "ethers";
 
@@ -11,6 +11,7 @@ const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate(); // useNavigate hook
 
   const toggleNav = () => {
     setIcon((prevIcon) => (prevIcon === faBars ? faX : faBars));
@@ -35,6 +36,7 @@ const Header = () => {
 
       if (authenticated) {
         console.log("User successfully authenticated!");
+        navigate("/dashboard"); // Redirect to dashboard
       } else {
         console.warn("Authentication failed.");
       }
@@ -93,7 +95,7 @@ const Header = () => {
               navOpen ? "top-[10%] bg-[#03045E]" : "top-[-100%]"
             }`}
           >
-            <ul className="flex lg:flex-row flex-col items-center lg:gap-8 gap-6 text-lg font-semibold">
+            <ul className="flex lg:flex-row flex-col items-center  justify-evenly lg:gap-8 gap-6 text-lg font-semibold">
               <li>
                 <NavLink
                   to="/"
@@ -104,26 +106,7 @@ const Header = () => {
                   HOME
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to="/about"
-                  className={({ isActive }) =>
-                    isActive ? "text-[#CAF0F8]" : ""
-                  }
-                >
-                  ABOUT
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/contact"
-                  className={({ isActive }) =>
-                    isActive ? "text-[#CAF0F8]" : ""
-                  }
-                >
-                  CONTACT
-                </NavLink>
-              </li>
+              
               <li>
                 <button
                   onClick={connectWallet}

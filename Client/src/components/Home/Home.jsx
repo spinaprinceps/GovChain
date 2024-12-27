@@ -19,7 +19,7 @@ const Home = () => {
                 <div className="absolute bottom-20 left-1/3 w-28 h-28 bg-[#0077B6] opacity-25 rounded-lg animate-floatSlower"></div>
                 <div className="absolute bottom-10 right-10 w-48 h-48 bg-[#023E8A] opacity-15 rounded-lg animate-driftSlower"></div>
                 {/* Hero Content */}
-                <div className="container mx-auto px-6 lg:px-20 flex flex-col lg:flex-row items-center relative z-10">
+                <div className="container mx-auto my-20 py-10 px-6 lg:px-20 flex flex-col lg:flex-row items-center relative z-10">
                     {/* Text Section */}
                     <div className="w-full lg:w-1/2 mb-12 lg:mb-0">
                         <h1
@@ -35,12 +35,7 @@ const Home = () => {
                             GovChain empowers citizens with transparency, accountability, and secure decision-making.
                             Propose, vote, and track in real-time on a blockchain-powered platform.
                         </p>
-                        <button
-                            onClick={handleClick}
-                            className="px-6 py-3 text-xl bg-gradient-to-r from-[#00b6c1] to-[#00a1a0] text-white rounded-md border-2 border-[#00b6c1] bg-opacity-20 hover:scale-110 hover:from-[#008e8a] hover:to-[#00b6c1] hover:border-[#008e8a] transition-transform duration-300"
-                        >
-                            Connect Wallet
-                        </button>
+                        
                     </div>
 
                     {/* Image Section */}

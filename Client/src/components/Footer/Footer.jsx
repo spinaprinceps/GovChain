@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="text-center">
         <span className="text-sm">&copy; 2024 GovChain. All Rights Reserved.</span>
       </div>
-      {/* Optional: Add gradient background for footer */}
+      
       
     </footer>
   );

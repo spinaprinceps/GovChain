@@ -8,4 +8,4 @@ exports.signToken = (payload) => {
   return jwt.sign(payload, secret, { expiresIn: "1h" });
 };
 
-console.log("JWT_SECRET:", process.env.JWT_SECRET);
+
