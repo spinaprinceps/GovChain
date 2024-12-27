@@ -12,6 +12,9 @@ export default {
         floatSlower: 'float 12s ease-in-out infinite',
         driftSlower: 'drift 15s ease-in-out infinite',
       },
+      fontFamily: {
+        roboto: ['Roboto', 'sans-serif'],
+      },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },

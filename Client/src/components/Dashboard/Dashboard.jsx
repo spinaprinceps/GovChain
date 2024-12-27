@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Dashboard = () => {
+  const navigate = useNavigate(); // Correctly initialize the navigate function
+
   return (
     <div
       className="dashboard"
@@ -15,10 +18,10 @@ const Dashboard = () => {
         <div className="w-1/5 bg-white/10 backdrop-blur-lg p-6 min-h-screen">
           <h2 className="text-white font-semibold text-lg mb-4">Dashboard</h2>
           <ul className="space-y-4 text-white">
-            <li>Home</li>
-            <li>Create Proposal</li>
-            <li>View Proposals</li>
-            <li>Settings</li>
+            <li onClick={() => navigate("/home")} className="cursor-pointer">Home</li>
+            <li onClick={() => navigate("/create-proposal")} className="cursor-pointer">Create Proposal</li>
+            <li onClick={() => navigate("/view-proposals")} className="cursor-pointer">View Proposals</li>
+            <li onClick={() => navigate("/settings")} className="cursor-pointer">Settings</li>
           </ul>
         </div>
 
@@ -40,6 +43,7 @@ const Dashboard = () => {
                 }}
                 onMouseOver={(e) => (e.target.style.backgroundColor = "#008e8d")}
                 onMouseOut={(e) => (e.target.style.backgroundColor = "#00a1a0")}
+                onClick={() => navigate("/proposalform")} // Add onClick to navigate
               >
                 Submit Proposal
               </button>
@@ -58,6 +62,7 @@ const Dashboard = () => {
                 }}
                 onMouseOver={(e) => (e.target.style.backgroundColor = "#008e8d")}
                 onMouseOut={(e) => (e.target.style.backgroundColor = "#00a1a0")}
+                onClick={() => navigate("/getproposal")} // Add onClick to navigate
               >
                 View Proposals
               </button>
