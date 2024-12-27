@@ -4,17 +4,30 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 require('dotenv').config(); // Load environment variables
 
+// Load environment variables
 dotenv.config();
-
-const app = express();
-app.use(cors());
-app.use(express.json());
 
 // Connect to the database
 connectDB();
 
+// Initialize Express app
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
 // Routes
+// Authentication and wallet-related routes
 app.use("/auth", require("./routes/auth"));
+
+// Proposal-related routes
+app.use("/proposals", require("./routes/proposal"));
+
+// Default route to ensure server is running
+app.get("/", (req, res) => {
+  res.send("Welcome to the GovChain Backend!");
+});
 
 // Start the server
 const PORT = process.env.PORT || 3002;
