@@ -47,7 +47,7 @@ const Header = () => {
                             </li>
                             <li>
                                 <NavLink
-                                    to="/about"
+                                    to="/dashboard"
                                     className={({ isActive }) =>
                                         `block py-2 px-4 rounded-lg ${
                                             isActive

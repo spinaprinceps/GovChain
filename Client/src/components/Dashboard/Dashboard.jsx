@@ -1,151 +1,100 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const Dashboard = () => {
-  const [files, setFiles] = useState([]);
+function Dashboard() {
+    const [proposals, setProposals] = useState([
+        { title: "Build a New Library", description: "A proposal to build a new library in town.", votes: 120, status: "Ongoing" },
+        { title: "Plant More Trees", description: "Suggest planting more trees in the park.", votes: 200, status: "Approved" },
+    ]);
 
-  // Handle file upload
-  const handleFileUpload = (event) => {
-    if (!event.target.files.length) return;
+    const handleConnectWallet = () => {
+        alert("Wallet connected! (This is a placeholder action)");
+    };
 
-    const uploadedFiles = Array.from(event.target.files);
-    const newFiles = uploadedFiles.map((file) => ({
-      file,
-      progress: 100, // Simulating successful upload (100%)
-      completed: true, // Mark as completed
-    }));
+    const handleSubmitProposal = () => {
+        alert("Redirecting to proposal submission form! (This is a placeholder action)");
+    };
 
-    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-  };
+    const handleViewProposals = () => {
+        alert("Displaying all proposals! (This is a placeholder action)");
+    };
 
-  // Handle file deletion
-  const handleDelete = (index) => {
-    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
-  };
+    return (
+        <div className="flex h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100">
+            {/* Sidebar */}
+            <aside className="w-1/4 bg-gray-800 text-gray-200 flex flex-col p-6 shadow-md">
+                <h2 className="text-4xl font-extrabold mb-10"></h2>
+                <nav>
+                    <ul className="space-y-6 text-lg">
+                        <li className="hover:text-blue-400 transition-colors cursor-pointer">Dashboard</li>
+                        <li className="hover:text-blue-400 transition-colors cursor-pointer">Create Proposal</li>
+                        <li className="hover:text-blue-400 transition-colors cursor-pointer">View Proposals</li>
+                        <li className="hover:text-blue-400 transition-colors cursor-pointer">Settings</li>
+                    </ul>
+                </nav>
+            </aside>
 
-  // Handle file sharing
-  const handleShare = (file) => {
-    alert(`Sharing file: ${file.file.name}`);
-  };
-
-  return (
-    <div
-      className="p-12 min-h-screen flex justify-center items-center"
-      style={{ backgroundColor: "#ffffff" }}
-    >
-      <div className="grid grid-cols-2 gap-8 w-full max-w-7xl">
-        {/* Left Column: File Upload Section */}
-        <div className="flex flex-col items-center">
-          <h1 className="text-4xl font-bold mb-8" style={{ color: "#00171f" }}>
-            Upload Your Files
-          </h1>
-          <div
-            className="border-dashed border-4 w-full h-52 flex items-center justify-center"
-            style={{ borderColor: "#D9EAFD" }}
-          >
-            <input
-              id="file-input"
-              type="file"
-              multiple
-              className="hidden"
-              onChange={handleFileUpload}
-            />
-            <label
-              htmlFor="file-input"
-              className="cursor-pointer text-2xl"
-              style={{ color: "#007ea7" }}
-            >
-              Drag files to upload or <span className="underline">browse</span>
-            </label>
-          </div>
-        </div>
-
-        {/* Right Column: Uploaded Files Section */}
-        <div className="flex flex-col">
-          <h2 className="text-3xl font-bold mb-6" style={{ color: "#00171f" }}>
-            
-          </h2>
-          {files.length === 0 ? (
-            <div
-              className="flex items-center justify-center h-64 border-2 rounded-lg"
-              style={{
-                borderColor: "#D9EAFD",
-                backgroundColor: "#f9f9f9",
-              }}
-            >
-              <p
-                className="text-lg"
-                style={{
-                  color: "#7f8c8d",
-                  fontStyle: "italic",
-                }}
-              >
-                No files uploaded
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-6">
-              {files.map((fileObj, index) => (
-                <div
-                  key={index}
-                  className="p-6 shadow rounded-lg"
-                  style={{
-                    backgroundColor: "#f9f9f9",
-                    border: "2px solid #003459",
-                  }}
-                >
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p
-                        className="font-medium text-lg"
-                        style={{ color: "#00171f" }}
-                      >
-                        {fileObj.file.name}
-                      </p>
-                      <p className="text-md" style={{ color: "#003459" }}>
-                        {(fileObj.file.size / 1024).toFixed(2)} KB
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => handleDelete(index)}
-                      className="text-md font-medium underline px-3 py-1 rounded-lg"
-                      style={{
-                        color: "#ffffff",
-                        backgroundColor: "#ff0000",
-                        border: "none",
-                      }}
-                    >
-                      Delete
+            {/* Main Content */}
+            <main className="flex-1 flex flex-col">
+                {/* Top Bar */}
+                <header className="bg-gray-800 text-white p-4 flex justify-between items-center shadow-md">
+                    <h1 className="text-3xl font-semibold">Dashboard</h1>
+                    <button 
+                        onClick={handleConnectWallet} 
+                        className="bg-blue-600 hover:bg-blue-500 transition-all text-white py-2 px-6 rounded-lg font-medium">
+                        Connect Wallet
                     </button>
-                  </div>
-                  <div className="mt-4">
-                    <div className="flex items-center justify-between">
-                      <span
-                        className="font-medium text-lg"
-                        style={{ color: "#007ea7" }}
-                      >
-                        Upload Successful
-                      </span>
-                      <button
-                        onClick={() => handleShare(fileObj)}
-                        className="text-md font-medium underline px-3 py-1 rounded-lg"
-                        style={{
-                          color: "#ffffff",
-                          backgroundColor: "#28a745",
-                          border: "none",
-                        }}
-                      >
-                        Share
-                      </button>
+                </header>
+
+                {/* Dashboard Content */}
+                <section className="p-8">
+                    {/* Options */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                        <div className="bg-gradient-to-r from-green-500 to-green-600 shadow-xl p-6 rounded-lg hover:shadow-2xl transition-shadow">
+                            <h3 className="text-2xl font-bold mb-4">Create a Proposal</h3>
+                            <button 
+                                onClick={handleSubmitProposal} 
+                                className="bg-gray-900 hover:bg-gray-800 text-gray-100 py-3 px-6 rounded-lg transition-all">
+                                Submit Proposal
+                            </button>
+                        </div>
+                        <div className="bg-gradient-to-r from-blue-500 to-blue-600 shadow-xl p-6 rounded-lg hover:shadow-2xl transition-shadow">
+                            <h3 className="text-2xl font-bold mb-4">See Other Proposals</h3>
+                            <button 
+                                onClick={handleViewProposals} 
+                                className="bg-gray-900 hover:bg-gray-800 text-gray-100 py-3 px-6 rounded-lg transition-all">
+                                View Proposals
+                            </button>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+
+                    {/* Proposals Table */}
+                    <div className="bg-gray-800 shadow-lg p-6 rounded-lg">
+                        <h2 className="text-3xl font-extrabold mb-6">Proposals</h2>
+                        <table className="table-auto w-full text-left text-gray-200">
+                            <thead>
+                                <tr className="border-b border-gray-700">
+                                    <th className="py-3 px-4 text-lg">Title</th>
+                                    <th className="py-3 px-4 text-lg">Description</th>
+                                    <th className="py-3 px-4 text-lg">Votes</th>
+                                    <th className="py-3 px-4 text-lg">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {proposals.map((proposal, index) => (
+                                    <tr key={index} className="border-b border-gray-700 hover:bg-gray-700 transition-colors">
+                                        <td className="py-3 px-4">{proposal.title}</td>
+                                        <td className="py-3 px-4">{proposal.description}</td>
+                                        <td className="py-3 px-4">{proposal.votes}</td>
+                                        <td className="py-3 px-4">{proposal.status}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
         </div>
-      </div>
-    </div>
-  );
-};
+    );
+}
 
 export default Dashboard;
