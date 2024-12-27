@@ -75,7 +75,8 @@ const Header = () => {
                             </li>
                             <li>
                                 <button
-                                    className="px-4 py-2 bg-[#CAF0F8] text-[#03045E] rounded-lg hover:scale-110 transition-transform duration-300"
+                                    className="px-6 py-3 text-xl bg-gradient-to-r from-[#00b6c1] to-[#00a1a0] text-white rounded-md border-2 border-[#00b6c1] bg-opacity-20 hover:scale-110 hover:from-[#008e8a] hover:to-[#00b6c1] hover:border-[#008e8a] transition-transform duration-300"
+
                                 >
                                     Connect Wallet
                                 </button>

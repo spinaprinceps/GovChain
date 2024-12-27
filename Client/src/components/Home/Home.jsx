@@ -1,5 +1,5 @@
 import React from 'react';
-import heroImage from '../../logo/rb.png'; // Replace with your actual image path
+import heroImage from '../../logo/3.png'; // Replace with your actual image path
 import { useNavigate } from 'react-router';
 
 const Home = () => {
@@ -32,9 +32,11 @@ const Home = () => {
                         </p>
                         <button
                             onClick={handleClick}
-                            className="px-6 py-3 text-xl bg-[#CAF0F8] text-[#03045E] rounded-md hover:scale-110 transition-transform duration-300"
+                            className="px-6 py-3 text-xl bg-gradient-to-r from-[#00b6c1] to-[#00a1a0] text-white rounded-md border-2 border-[#00b6c1] bg-opacity-20 hover:scale-110 hover:from-[#008e8a] hover:to-[#00b6c1] hover:border-[#008e8a] transition-transform duration-300"
+
+
                         >
-                            Get Started
+                            Connect Wallet
                         </button>
                     </div>
 
