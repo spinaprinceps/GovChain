@@ -1,10 +1,8 @@
 const express = require("express");
+const { getNonce, verifySignature } = require("../controllers/authController");
 const router = express.Router();
-const { verifyToken } = require("../controllers/authController");
 
-// Other authentication routes
-
-// Protected route to verify token
-router.get("/dashboard", verifyToken);
+router.get("/nonce/:walletAddress", getNonce);
+router.post("/verify", verifySignature);
 
 module.exports = router;

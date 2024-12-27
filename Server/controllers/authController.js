@@ -3,8 +3,15 @@ const { generateNonce } = require("../utils/generateNonce");
 const { signToken } = require("../utils/jwtUtils");
 const ethers = require("ethers");
 
+/**
+ * Get a nonce for a wallet address.
+ */
 exports.getNonce = async (req, res) => {
   const { walletAddress } = req.params;
+
+  if (!walletAddress) {
+    return res.status(400).json({ error: "Wallet address is required" });
+  }
 
   try {
     let user = await User.findOne({ walletAddress: walletAddress.toLowerCase() });
@@ -19,23 +26,24 @@ exports.getNonce = async (req, res) => {
     }
 
     console.log("Sending nonce:", { walletAddress: user.walletAddress, nonce: user.nonce });
-    res.json({ nonce: user.nonce });
+    return res.json({ nonce: user.nonce });
   } catch (error) {
     console.error("Error in getNonce:", error);
-    res.status(500).json({ error: "Server error in getting nonce" });
+    return res.status(500).json({ error: "Server error in getting nonce" });
   }
 };
 
+/**
+ * Verify the signature of a wallet address.
+ */
 exports.verifySignature = async (req, res) => {
+  const { walletAddress, signature } = req.body;
+
+  if (!walletAddress || !signature) {
+    return res.status(400).json({ error: "Missing walletAddress or signature" });
+  }
+
   try {
-    const { walletAddress, signature } = req.body;
-
-    console.log("1️⃣ Backend received:", { walletAddress, signature });
-
-    if (!walletAddress || !signature) {
-      return res.status(400).json({ error: "Missing walletAddress or signature" });
-    }
-
     const user = await User.findOne({ walletAddress: walletAddress.toLowerCase() });
 
     if (!user) {
@@ -43,27 +51,28 @@ exports.verifySignature = async (req, res) => {
     }
 
     const message = `Nonce: ${user.nonce}`;
-    console.log("2️⃣ Verifying signature with message:", { message, signature });
+    console.log("Verifying signature with message:", { message, signature });
 
+    let recoveredAddress;
     try {
-      const recoveredAddress = ethers.verifyMessage(message, signature);
-
-      if (recoveredAddress.toLowerCase() === walletAddress.toLowerCase()) {
-        // Signature verified
-        user.nonce = generateNonce(); // Update the nonce for security
-        await user.save();
-
-        const token = signToken({ walletAddress });
-        console.log("✅ User authenticated:", walletAddress);
-
-        return res.json({ token });
-      } else {
-        return res.status(401).json({ error: "Invalid signature" });
-      }
+      recoveredAddress = ethers.verifyMessage(message, signature);
     } catch (error) {
       console.error("Error in signature verification:", error);
-      return res.status(500).json({ error: "Signature verification failed" });
+      return res.status(400).json({ error: "Invalid signature format" });
     }
+
+    if (recoveredAddress.toLowerCase() !== walletAddress.toLowerCase()) {
+      return res.status(401).json({ error: "Invalid signature" });
+    }
+
+    // Signature verified, update nonce and issue token
+    user.nonce = generateNonce();
+    await user.save();
+
+    const token = signToken({ walletAddress });
+    console.log("User authenticated successfully:", walletAddress);
+
+    return res.json({ token });
   } catch (error) {
     console.error("Error in verifySignature:", error);
     return res.status(500).json({ error: "Server error in signature verification" });
