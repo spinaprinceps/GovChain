@@ -110,7 +110,7 @@ const Header = () => {
               <li>
                 <button
                   onClick={connectWallet}
-                  className="px-6 py-3 text-xl bg-gradient-to-r from-[#00b6c1] to-[#00a1a0] text-white rounded-md"
+                  className="px-6 py-3 text-xl bg-gradient-to-r from-[#00b6c1] to-[rgb(0,161,160)] text-white rounded-md"
                 >
                   {isAuthenticated
                     ? `Authenticated: ${walletAddress.substring(
