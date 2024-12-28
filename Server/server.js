@@ -1,13 +1,9 @@
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-require('dotenv').config(); // Load environment variables
 
 // Load environment variables
-dotenv.config();
-
-// Connect to the database
 connectDB();
 
 // Initialize Express app
@@ -18,10 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-// Authentication and wallet-related routes
 app.use("/auth", require("./routes/auth"));
-
-// Proposal-related routes
 app.use("/proposals", require("./routes/proposal"));
 
 // Default route to ensure server is running

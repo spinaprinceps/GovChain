@@ -1,6 +1,5 @@
 const Proposal = require("../models/proposalModel");
 
-// Create a new proposal
 exports.createProposal = async (req, res) => {
   const { title, description, createdBy } = req.body;
 
@@ -14,7 +13,6 @@ exports.createProposal = async (req, res) => {
   }
 };
 
-// Vote on a proposal
 exports.voteProposal = async (req, res) => {
   const { proposalId, voteType } = req.body;
 
@@ -41,7 +39,6 @@ exports.voteProposal = async (req, res) => {
   }
 };
 
-// Get all proposals
 exports.getProposals = async (req, res) => {
   try {
     const proposals = await Proposal.find();

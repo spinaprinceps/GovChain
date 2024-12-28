@@ -7,5 +7,3 @@ exports.signToken = (payload) => {
   }
   return jwt.sign(payload, secret, { expiresIn: "1h" });
 };
-
-

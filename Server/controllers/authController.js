@@ -9,27 +9,22 @@ const ethers = require("ethers");
 exports.getNonce = async (req, res) => {
   const { walletAddress } = req.params;
 
-  if (!walletAddress) {
-    return res.status(400).json({ error: "Wallet address is required" });
-  }
-
   try {
-    let user = await User.findOne({ walletAddress: walletAddress.toLowerCase() });
+    let user = await User.findOne({ walletAddress });
 
     if (!user) {
-      console.log("User not found. Creating new user:", walletAddress);
+      console.log(`User not found. Creating new user: ${walletAddress}`);
       user = new User({
-        walletAddress: walletAddress.toLowerCase(),
+        walletAddress,
         nonce: generateNonce(),
       });
       await user.save();
     }
 
-    console.log("Sending nonce:", { walletAddress: user.walletAddress, nonce: user.nonce });
-    return res.json({ nonce: user.nonce });
+    res.json({ nonce: user.nonce });
   } catch (error) {
     console.error("Error in getNonce:", error);
-    return res.status(500).json({ error: "Server error in getting nonce" });
+    res.status(500).json({ error: "Server error" });
   }
 };
 
