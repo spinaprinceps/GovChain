@@ -1,17 +1,34 @@
+
 const Proposal = require("../models/proposalModel");
 
 exports.createProposal = async (req, res) => {
-  const { title, description, createdBy } = req.body;
-
   try {
-    const newProposal = new Proposal({ title, description, createdBy });
+    console.log("Request body:", req.body); // Debugging line
+
+    const { title, description, createdBy } = req.body;
+
+    // Ensure all required fields are provided
+    if (!title || !description || !createdBy) {
+      return res.status(400).json({
+        error: "All fields (title, description, createdBy) are required.",
+      });
+    }
+
+    const newProposal = new Proposal({
+      title,
+      description,
+      walletAddress: createdBy, // Matches schema
+    });
+
     await newProposal.save();
-    res.status(201).json({ message: "Proposal created successfully", proposal: newProposal });
-  } catch (error) {
-    console.error("Error creating proposal:", error);
-    res.status(500).json({ error: "Server error" });
+    res.status(201).json({ message: "Proposal created successfully." });
+  } catch (err) {
+    console.error("Error creating proposal:", err);
+    res.status(500).json({ error: "Server error. Please try again." });
   }
 };
+
+
 
 exports.voteProposal = async (req, res) => {
   const { proposalId, voteType } = req.body;
