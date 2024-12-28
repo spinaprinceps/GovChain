@@ -3,9 +3,6 @@ const { generateNonce } = require("../utils/generateNonce");
 const { signToken } = require("../utils/jwtUtils");
 const ethers = require("ethers");
 
-/**
- * Get a nonce for a wallet address.
- */
 exports.getNonce = async (req, res) => {
   const { walletAddress } = req.params;
 
@@ -28,9 +25,7 @@ exports.getNonce = async (req, res) => {
   }
 };
 
-/**
- * Verify the signature of a wallet address.
- */
+
 exports.verifySignature = async (req, res) => {
   const { walletAddress, signature } = req.body;
 
